@@ -59,4 +59,59 @@
         return $query = mysqli_query($con, "SELECT * FROM tbl_taks");
     }
 
-    var_dump(get_data_taks());
+
+
+    function cekUser($id_user) {
+        global $con;
+        $query = "SELECT * FROM tbl_users WHERE nik = '$id_user'";
+        $result = mysqli_query($con, $query);
+        if (mysqli_num_rows($result) >= 1) {
+            return false;
+        }
+
+        return true;
+    }
+
+    function cekPc($pc_name) {
+        global $con;
+        $query = "SELECT * FROM tbl_computers WHERE pc_name = '$pc_name'";
+        $result = mysqli_query($con, $query);
+        if (mysqli_num_rows($result) >= 1) {
+            return false;
+        }
+
+        return true;
+    }
+
+    function addComputerData($pc_name,  $pc_brand, $processor, $os, $ram, $hdd, $ip, $ms_office, $antivirus, $wsus, $click_one, $ax, $web_schedule, $com_fix_num, $com_date, $edp_com_num) {
+        global $con;
+        $query = "INSERT INTO tbl_computers VALUES('', '$pc_name', '$pc_brand', '$processor', '$os', '$ram', '$hdd', '$ip', '$ms_office', '$antivirus', '$wsus', '$click_one', '$ax', '$web_schedule', '$com_fix_num', '$com_date', '$edp_com_num')";
+        $result = mysqli_query($con, $query);
+        if (mysqli_error($con)) {
+            die(mysqli_error($con));
+        }
+
+
+    }
+
+    function addUserData($nik, $id_komputer = 1, $name, $email, $user_logon, $password, $section, $position) {
+        global $con;
+        $query = "INSERT INTO tbl_users VALUES('$nik', '$id_komputer', '$name', '$email', '$user_logon', '$password', '$section',  '$position')";
+        $result = mysqli_query($con, $query);
+        if (mysqli_error($con)) {
+            return "Query gagal : " . mysqli_error($con);
+        }
+
+        return true;
+    }
+
+    function addMonitorData($monitor_brand, $port_display, $monitor_fix_num, $monitor_date, $edp_monitor_num) {
+        global $con;
+        $query = "INSERT INTO tbl_monitors VALUES('', '$monitor_brand', '$port_display', '$monitor_fix_num', '$monitor_date', '$edp_monitor_num')";
+        $result = mysqli_query($con, $query);
+        if (mysqli_error($con)) {
+            return "Query gagal : " . mysqli_error($con);
+        }
+
+        return true;
+    }
